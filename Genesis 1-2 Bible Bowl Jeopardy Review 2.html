@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Genesis 1–2 Bible Bowl Jeopardy Review 2</title>
+<style>
+:root{--blue:#060a78;--blue2:#111a9a;--gold:#ffcc33;--black:#080808}
+*{box-sizing:border-box}
+body{margin:0;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
+#game{max-width:1250px;margin:auto;padding:16px}
+.bar,.panel,.score,.wrap{background:var(--blue);border:4px solid var(--black);border-radius:8px}
+.bar{padding:14px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.title{grid-column:2;text-align:center;font-size:26px;font-weight:900;text-transform:uppercase}
+#reset{grid-column:3;justify-self:end}
+.board-wrap{overflow-x:auto;margin-top:12px}
+.board{min-width:920px;display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:7px}
+.cat{min-height:88px;border:3px solid var(--black);display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-weight:900;text-transform:uppercase;text-shadow:2px 2px #000}
+.cell{min-height:82px;background:var(--blue);border:3px solid var(--black);color:var(--gold);font-size:28px;font-weight:900;text-shadow:2px 2px #000;cursor:pointer}
+.cell:hover{background:var(--blue2)}.cell:disabled{background:#111;color:#666;cursor:not-allowed;text-shadow:none}
+.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.score{padding:12px}.scoreval{color:var(--gold);font-size:30px;font-weight:900;margin:8px 0}
+.btn,.choice{min-height:44px;border:2px solid var(--gold);border-radius:6px;background:#111;color:#fff;font-weight:800;padding:10px 14px;cursor:pointer}
+.btn:hover,.choice:hover{background:#222}.panel{padding:22px}.hidden{display:none!important}
+.head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--gold);padding-bottom:10px}
+.value{color:var(--gold);font-size:22px;font-weight:900}.ref{font-size:21px;font-weight:900}
+.question{font-size:29px;line-height:1.4;font-weight:800;text-align:center;padding:28px 10px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:1000px;margin:auto}
+.choice{text-align:left;background:#05055f;font-size:18px}.choice.selected{outline:4px solid #fff}.choice.correct{color:var(--gold);outline:4px solid var(--gold);background:#111}
+.answer{background:#111;border:2px solid var(--gold);border-radius:8px;padding:16px;color:var(--gold);font-size:24px;font-weight:900;max-width:1000px;margin:18px auto 0}
+.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+.surprise{background:#111;border:4px solid var(--gold);border-radius:10px;padding:24px;text-align:center;max-width:760px;margin:20px auto}
+.surprise h2{color:var(--gold);font-size:36px;margin:0 0 10px}
+.wrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.wrow select,.wrow input{font-size:18px;padding:10px;border:2px solid var(--gold);border-radius:6px;min-height:44px}
+.good{color:#74ff9c}.bad{color:#ff8b8b}
+@media(max-width:800px){.bar{display:flex;flex-direction:column}#reset{align-self:center}.scores{grid-template-columns:1fr}.choices{grid-template-columns:1fr}.question{font-size:22px}}
+</style>
+</head>
+<body>
+<main id="game">
+<section id="boardView">
+<div class="bar"><div class="title">GENESIS 1–2 BIBLE BOWL JEOPARDY — REVIEW 2</div><button id="reset" class="btn">Reset Game</button></div>
+<div class="wrap board-wrap"><div id="board" class="board"></div></div>
+<div class="scores">
+<div class="score"><b>Team 1</b><div id="s0" class="scoreval">0</div><button class="sb btn" data-t="0" data-d="100">+100</button> <button class="sb btn" data-t="0" data-d="-100">−100</button></div>
+<div class="score"><b>Team 2</b><div id="s1" class="scoreval">0</div><button class="sb btn" data-t="1" data-d="100">+100</button> <button class="sb btn" data-t="1" data-d="-100">−100</button></div>
+<div class="score"><b>Team 3</b><div id="s2" class="scoreval">0</div><button class="sb btn" data-t="2" data-d="100">+100</button> <button class="sb btn" data-t="2" data-d="-100">−100</button></div>
+</div>
+</section>
+
+<section id="wagerView" class="panel hidden">
+<div class="surprise"><h2>Surprise Jeopardy!</h2>
+<div>Choose the team and wager before the question is revealed.</div>
+<div class="wrow">
+<select id="wt"><option value="0">Team 1</option><option value="1">Team 2</option><option value="2">Team 3</option></select>
+<input id="wa" type="number" min="100" step="100" value="100">
+<button id="lock" class="btn">Lock Wager & Show Question</button>
+</div>
+<div id="wn" style="color:#ddd;margin-top:8px"></div>
+</div>
+</section>
+
+<section id="qView" class="panel hidden">
+<div class="head"><div><b id="qc"></b><div id="qval" class="value"></div></div><div id="qr" class="ref"></div></div>
+<div id="qq" class="question"></div>
+<div id="choices" class="choices"></div>
+<div id="ans" class="answer hidden"><div style="font-size:13px;color:#fff">CORRECT ANSWER</div><div id="at"></div></div>
+<div class="controls">
+<button id="show" class="btn">Show Answer</button>
+<button id="yes" class="btn hidden">Correct</button>
+<button id="no" class="btn hidden">Incorrect</button>
+<button id="back" class="btn">Back to Board</button>
+</div>
+<div id="res" style="text-align:center;font-size:20px;font-weight:900;margin-top:10px"></div>
+</section>
+</main>
+<script>
+const cats=[{"name": "Creation Details", "questions": [{"ref": "Genesis 1:9", "q": "According to Genesis 1:9, what appeared after the waters were gathered together?", "a": "Dry land.", "choices": ["The firmament.", "Dry land.", "Grass.", "The stars."], "correctIndex": 1}, {"ref": "Genesis 1:7", "q": "According to Genesis 1:7, what did the firmament divide?", "a": "The waters below from the waters above.", "choices": ["The day from night.", "The land from the sea.", "The light from darkness.", "The waters below from the waters above."], "correctIndex": 3}, {"ref": "Genesis 1:4", "q": "According to Genesis 1:4, what did God see concerning the light?", "a": "That it was good.", "choices": ["That it was greater than darkness.", "That it was good.", "That it was bright.", "That it was finished."], "correctIndex": 1}, {"ref": "Genesis 1:12", "q": "According to Genesis 1:12, how did the earth bring forth grass, herbs, and trees?", "a": "According to their kind.", "choices": ["According to their kind.", "According to their size.", "According to the weather.", "According to the seasons."], "correctIndex": 0}, {"ref": "Genesis 1:5", "q": "According to Genesis 1:5, what did God call the darkness?", "a": "Night.", "choices": ["Shadow.", "Night.", "Deep.", "Evening."], "correctIndex": 1}]}, {"name": "Lights & Days", "questions": [{"ref": "Genesis 1:16", "q": "According to Genesis 1:16, what did the lesser light rule?", "a": "The night.", "choices": ["The day.", "The seas.", "The earth.", "The night."], "correctIndex": 3}, {"ref": "Genesis 1:14", "q": "According to Genesis 1:14, what were the lights in the firmament also to be used for?", "a": "Signs, seasons, days, and years.", "choices": ["Morning, evening, seasons, and years.", "Signs, seasons, days, and years.", "Light, heat, seasons, and months.", "Days, nights, rain, and years."], "correctIndex": 1}, {"ref": "Genesis 1:16", "q": "According to Genesis 1:16, what did the greater light rule?", "a": "The day.", "choices": ["The night.", "The day.", "The stars.", "The seasons."], "correctIndex": 1}, {"ref": "Genesis 1:19", "q": "According to Genesis 1:19, which day ended after God made the lights?", "a": "The fourth day.", "choices": ["The fourth day.", "The fifth day.", "The third day.", "The sixth day."], "correctIndex": 0}, {"ref": "Genesis 1:18", "q": "According to Genesis 1:18, what were the lights to divide?", "a": "The light from the darkness.", "choices": ["The light from the darkness.", "The morning from the evening.", "The day from the seasons.", "The land from the sea."], "correctIndex": 0}]}, {"name": "Living Creatures", "questions": [{"ref": "Genesis 1:22", "q": "According to Genesis 1:22, what did God tell the birds to do?", "a": "Multiply on the earth.", "choices": ["Fill the seas.", "Rest on the earth.", "Multiply on the earth.", "Rule over the cattle."], "correctIndex": 2}, {"ref": "Genesis 1:24", "q": "According to Genesis 1:24, what did God command the earth to bring forth?", "a": "Living creatures according to their kind.", "choices": ["Living creatures according to their kind.", "Trees according to their kind.", "Birds according to their kind.", "Sea creatures according to their kind."], "correctIndex": 0}, {"ref": "Genesis 1:26", "q": "According to Genesis 1:26, in whose image was man to be made?", "a": "God’s image.", "choices": ["Adam’s image.", "God’s image.", "The angels’ image.", "The animals’ image."], "correctIndex": 1}, {"ref": "Genesis 1:21", "q": "According to Genesis 1:21, what did God create in the waters?", "a": "Great sea creatures and every living thing that moves.", "choices": ["Only fish.", "Great sea creatures and every living thing that moves.", "Birds and cattle.", "Cattle and creeping things."], "correctIndex": 1}, {"ref": "Genesis 1:28", "q": "According to Genesis 1:28, what did God tell mankind to do to the earth?", "a": "Fill it and subdue it.", "choices": ["Rest on it and guard it.", "Fill it and subdue it.", "Name it and keep it.", "Plant it and water it."], "correctIndex": 1}]}, {"name": "Garden of Eden", "questions": [{"ref": "Genesis 2:8", "q": "According to Genesis 2:8, where did the LORD God plant a garden?", "a": "Eastward in Eden.", "choices": ["In Havilah.", "Eastward in Eden.", "Westward in Eden.", "Near Assyria."], "correctIndex": 1}, {"ref": "Genesis 2:6", "q": "According to Genesis 2:6, what watered the whole face of the ground?", "a": "A mist.", "choices": ["A mist.", "A river.", "Rain.", "Dew."], "correctIndex": 0}, {"ref": "Genesis 2:9", "q": "According to Genesis 2:9, which two special trees were in the midst of the garden?", "a": "The tree of life and the tree of the knowledge of good and evil.", "choices": ["The tree of life and the cedar tree.", "The tree of knowledge and the palm tree.", "The tree of life and the tree of the knowledge of good and evil.", "The fig tree and the olive tree."], "correctIndex": 2}, {"ref": "Genesis 2:3", "q": "According to Genesis 2:3, what did God do to the seventh day?", "a": "Blessed it and sanctified it.", "choices": ["Named it and rested on it.", "Blessed it and sanctified it.", "Made it the first day.", "Filled it with light."], "correctIndex": 1}, {"ref": "Genesis 2:7", "q": "According to Genesis 2:7, what did man become after God breathed into his nostrils?", "a": "A living being.", "choices": ["A living being.", "A keeper of the garden.", "A helper.", "A ruler of the animals."], "correctIndex": 0}]}, {"name": "Rivers & Trees", "questions": [{"ref": "Genesis 2:10", "q": "According to Genesis 2:10, what went out of Eden to water the garden?", "a": "A river.", "choices": ["Rain.", "A river.", "A mist.", "A spring."], "correctIndex": 1}, {"ref": "Genesis 2:14", "q": "According to Genesis 2:14, what was the name of the fourth river?", "a": "Euphrates.", "choices": ["Euphrates.", "Pishon.", "Gihon.", "Hiddekel."], "correctIndex": 0}, {"ref": "Genesis 2:16", "q": "According to Genesis 2:16, what did God say man could freely eat from?", "a": "Every tree of the garden.", "choices": ["Only the tree of life.", "Only fruit trees.", "Every tree except the tree of life.", "Every tree of the garden."], "correctIndex": 3}, {"ref": "Genesis 2:11", "q": "According to Genesis 2:11, what was the name of the first river?", "a": "Pishon.", "choices": ["Gihon.", "Euphrates.", "Hiddekel.", "Pishon."], "correctIndex": 3}, {"ref": "Genesis 2:13", "q": "According to Genesis 2:13, what was the name of the second river?", "a": "Gihon.", "choices": ["Euphrates.", "Gihon.", "Hiddekel.", "Pishon."], "correctIndex": 1}]}, {"name": "Adam & Woman", "questions": [{"ref": "Genesis 2:23", "q": "According to Genesis 2:23, why was she called Woman?", "a": "Because she was taken out of Man.", "choices": ["Because she was taken out of Man.", "Because she was created first.", "Because she named the animals.", "Because she kept the garden."], "correctIndex": 0}, {"ref": "Genesis 2:19", "q": "According to Genesis 2:19, why did God bring the animals to Adam?", "a": "To see what he would call them.", "choices": ["To see what he would call them.", "To see which one he would keep.", "To send them out of Eden.", "To choose one as his helper."], "correctIndex": 0}, {"ref": "Genesis 2:18", "q": "According to Genesis 2:18, what did God say was not good?", "a": "That man should be alone.", "choices": ["That the river had four branches.", "That man should be alone.", "That the animals had no names.", "That the garden had no rain."], "correctIndex": 1}, {"ref": "Genesis 2:20", "q": "According to Genesis 2:20, what was not found for Adam?", "a": "A helper comparable to him.", "choices": ["A helper comparable to him.", "Animals to name.", "A place to live.", "Food to eat."], "correctIndex": 0}, {"ref": "Genesis 2:21", "q": "According to Genesis 2:21, what did God cause to fall on Adam?", "a": "A deep sleep.", "choices": ["A great fear.", "A mist.", "A deep sleep.", "Darkness."], "correctIndex": 2}]}],vals=[100,200,300,400,500],used=new Set(),scores=[0,0,0];let cur=null,wager=null,surprises=new Set();
+const $=id=>document.getElementById(id),board=$('board'),bv=$('boardView'),wv=$('wagerView'),qv=$('qView');
+function pickSurprises(){surprises.clear();let a=[];for(let c=0;c<6;c++)for(let r=0;r<5;r++)a.push(c+'-'+r);for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}a.slice(0,2).forEach(x=>surprises.add(x))}
+function draw(){board.innerHTML='';cats.forEach(c=>{let d=document.createElement('div');d.className='cat';d.textContent=c.name;board.appendChild(d)});for(let r=0;r<5;r++)cats.forEach((c,ci)=>{let id=ci+'-'+r,b=document.createElement('button');b.className='cell';b.textContent=used.has(id)?'✓':vals[r];b.disabled=used.has(id);b.onclick=()=>select(ci,r);board.appendChild(b)})}
+function select(ci,ri){let id=ci+'-'+ri;cur={ci,ri,id,base:vals[ri],surprise:surprises.has(id),q:cats[ci].questions[ri]};wager=null;$('res').textContent='';if(cur.surprise){bv.classList.add('hidden');wv.classList.remove('hidden');$('wa').value=100;note()}else showQ()}
+function note(){let t=+$('wt').value,max=scores[t]>0?scores[t]:500;$('wn').textContent='Current score: '+scores[t]+' · Maximum wager: '+max;$('wa').max=max}
+$('wt').onchange=note;
+$('lock').onclick=()=>{let t=+$('wt').value,max=scores[t]>0?scores[t]:500,a=Math.round(+$('wa').value/100)*100;if(!a||a<100)a=100;if(a>max)a=max;wager={team:t,amount:a};wv.classList.add('hidden');showQ()}
+function showQ(){let q=cur.q;bv.classList.add('hidden');wv.classList.add('hidden');qv.classList.remove('hidden');$('qc').textContent=(cur.surprise?'SURPRISE JEOPARDY — ':'')+cats[cur.ci].name;$('qval').textContent=cur.surprise?wager.amount+' point wager':cur.base+' points';$('qr').textContent=q.ref;$('qq').textContent=q.q;$('at').textContent=q.a;$('ans').classList.add('hidden');$('show').disabled=false;$('yes').classList.add('hidden');$('no').classList.add('hidden');let ch=$('choices');ch.innerHTML='';q.choices.forEach((x,i)=>{let b=document.createElement('button');b.className='choice';b.textContent=String.fromCharCode(65+i)+'. '+x;b.onclick=()=>{ch.querySelectorAll('.choice').forEach(y=>y.classList.remove('selected'));b.classList.add('selected')};ch.appendChild(b)})}
+$('show').onclick=()=>{$('ans').classList.remove('hidden');$('show').disabled=true;$('choices').querySelectorAll('.choice').forEach((b,i)=>{b.disabled=true;if(i===cur.q.correctIndex)b.classList.add('correct')});if(cur.surprise){$('yes').classList.remove('hidden');$('no').classList.remove('hidden')}}
+function wagerScore(ok){if(!cur.surprise||!wager)return;scores[wager.team]+=ok?wager.amount:-wager.amount;$('s'+wager.team).textContent=scores[wager.team];$('res').className=ok?'good':'bad';$('res').textContent=(ok?'Correct! +':'Incorrect. -')+wager.amount+' points for Team '+(wager.team+1);$('yes').disabled=$('no').disabled=true}
+$('yes').onclick=()=>wagerScore(true);$('no').onclick=()=>wagerScore(false);
+$('back').onclick=()=>{used.add(cur.id);qv.classList.add('hidden');bv.classList.remove('hidden');$('yes').disabled=$('no').disabled=false;draw()}
+document.querySelectorAll('.sb').forEach(b=>b.onclick=()=>{let t=+b.dataset.t;scores[t]+=+b.dataset.d;$('s'+t).textContent=scores[t]})
+$('reset').onclick=()=>{if(confirm('Reset all used questions, scores, and Surprise Jeopardy locations?')){used.clear();scores.fill(0);for(let i=0;i<3;i++)$('s'+i).textContent=0;pickSurprises();draw()}}
+pickSurprises();draw();
+</script>
+</body>
+</html>
