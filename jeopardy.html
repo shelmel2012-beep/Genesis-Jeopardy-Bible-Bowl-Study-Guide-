@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bible Bowl Jeopardy</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #07116f;
+        color: white;
+        text-align: center;
+    }
+
+    header {
+        background: #050b4d;
+        padding: 18px;
+        border-bottom: 4px solid #f7c928;
+    }
+
+    h1 {
+        margin: 0;
+        color: #f7c928;
+        font-size: 34px;
+    }
+
+    #chapterTitle {
+        margin-top: 8px;
+        font-size: 20px;
+    }
+
+    .scores {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding: 18px 10px;
+    }
+
+    .team {
+        background: #101b82;
+        border: 2px solid #f7c928;
+        border-radius: 10px;
+        padding: 12px 18px;
+        min-width: 170px;
+    }
+
+    .team-name {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    .score {
+        font-size: 26px;
+        color: #f7c928;
+        margin-bottom: 8px;
+    }
+
+    .score-buttons button {
+        margin: 3px;
+        padding: 6px 10px;
+        cursor: pointer;
+    }
+
+    .board-wrap {
+        width: 96%;
+        max-width: 1200px;
+        margin: 0 auto 25px;
+        overflow-x: auto;
+    }
+
+    #board {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
+        gap: 5px;
+        min-width: 800px;
+        background: #050505;
+        padding: 5px;
+    }
+
+    .category {
+        background: #101b82;
+        color: white;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .question-cell {
+        background: #0718a0;
+        color: #f7c928;
+        height: 100px;
+        border: none;
+        cursor: pointer;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .question-cell:hover {
+        background: #142bc2;
+    }
+
+    .question-cell.completed {
+        background: #171717;
+        color: #d4d4d4;
+        cursor: default;
+        font-size: 32px;
+    }
+
+    .controls {
+        margin: 20px 0 35px;
+    }
+
+    .controls button,
+    .controls a {
+        display: inline-block;
+        margin: 6px;
+        padding: 11px 18px;
+        border: none;
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .reset-btn {
+        background: #f7c928;
+        color: #111;
+    }
+
+    .home-btn {
+        background: white;
+        color: #07116f;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: rgba(0,0,0,.88);
+        padding: 30px 15px;
+    }
+
+    .modal-content {
+        background: #0718a0;
+        border: 4px solid #f7c928;
+        border-radius: 14px;
+        max-width: 800px;
+        margin: 25px auto;
+        padding: 28px;
+    }
+
+    .scripture {
+        color: #f7c928;
+        font-size: 21px;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
+
+    .question-text {
+        font-size: 25px;
+        line-height: 1.4;
+        margin-bottom: 24px;
+    }
+
+    .answers {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        text-align: left;
+    }
+
+    .answer-choice {
+        background: white;
+        color: #111;
+        padding: 13px 16px;
+        border-radius: 8px;
+        font-size: 19px;
+    }
+
+    .answer-choice.correct {
+        background: #b8f1bd;
+        color: #164d1e;
+        font-weight: bold;
+    }
+
+    .modal-buttons {
+        margin-top: 25px;
+    }
+
+    .modal-buttons button {
+        padding: 11px 16px;
+        margin: 5px;
+        border: none;
+        border-radius: 7px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .reveal-btn {
+        background: #f7c928;
+    }
+
+    .close-btn {
+        background: white;
+    }
+
+    .surprise {
+        background: #f7c928;
+        color: #07116f;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .surprise h2 {
+        margin-top: 0;
+        font-size: 34px;
+    }
+
+    #wagerArea {
+        margin: 15px 0;
+    }
+
+    #wagerArea input {
+        width: 150px;
+        padding: 9px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    #wagerArea select {
+        padding: 9px;
+        font-size: 17px;
+    }
+
+    .error {
+        max-width: 750px;
+        margin: 40px auto;
+        padding: 25px;
+        background: white;
+        color: #a00000;
+        border-radius: 10px;
+    }
+
+    @media(max-width: 600px) {
+        h1 {
+            font-size: 27px;
+        }
+
+        .question-text {
+            font-size: 21px;
+        }
+
+        .modal-content {
+            padding: 20px 15px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>BIBLE BOWL JEOPARDY</h1>
+    <div id="chapterTitle">Loading...</div>
+</header>
+
+<div class="scores">
+
+    <div class="team">
+        <div class="team-name">Team 1</div>
+        <div class="score" id="score1">0</div>
+        <div class="score-buttons">
+            <button onclick="adjustScore(1,100)">+100</button>
+            <button onclick="adjustScore(1,-100)">-100</button>
+        </div>
+    </div>
+
+    <div class="team">
+        <div class="team-name">Team 2</div>
+        <div class="score" id="score2">0</div>
+        <div class="score-buttons">
+            <button onclick="adjustScore(2,100)">+100</button>
+            <button onclick="adjustScore(2,-100)">-100</button>
+        </div>
+    </div>
+
+    <div class="team">
+        <div class="team-name">Team 3</div>
+        <div class="score" id="score3">0</div>
+        <div class="score-buttons">
+            <button onclick="adjustScore(3,100)">+100</button>
+            <button onclick="adjustScore(3,-100)">-100</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="board-wrap">
+    <div id="board"></div>
+</div>
+
+<div class="controls">
+    <button class="reset-btn" onclick="resetGame()">Reset Game</button>
+    <a class="home-btn" href="index.html">Return to Study Center</a>
+</div>
+
+
+<div id="questionModal" class="modal">
+    <div class="modal-content">
+
+        <div id="surpriseArea"></div>
+
+        <div class="scripture" id="modalScripture"></div>
+
+        <div class="question-text" id="modalQuestion"></div>
+
+        <div class="answers" id="modalAnswers"></div>
+
+        <div class="modal-buttons">
+
+            <button
+                class="reveal-btn"
+                onclick="revealAnswer()">
+                Reveal Answer
+            </button>
+
+            <button
+                class="close-btn"
+                onclick="finishQuestion()">
+                Return to Board
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+const GAME_SETS = {
+
+    genesis3: {
+        title: "Genesis Chapter 3",
+        file: "questions/genesis3.csv"
+    },
+
+    genesis4: {
+        title: "Genesis Chapter 4",
+        file: "questions/genesis4.csv"
+    }
+
+};
+
+
+let questions = [];
+let currentQuestion = null;
+let currentCell = null;
+
+let scores = [0,0,0];
+
+let surpriseQuestions = new Set();
+
+let currentWager = 0;
+let wageringTeam = null;
+
+
+function getGameSet() {
+
+    const params = new URLSearchParams(
+        window.location.search
+    );
+
+    return params.get("set") || "genesis3";
+}
+
+
+async function startGame() {
+
+    const setName = getGameSet();
+
+    const game = GAME_SETS[setName];
+
+    if (!game) {
+
+        showError(
+            "The requested Bible Bowl game could not be found."
+        );
+
+        return;
+    }
+
+    document.getElementById(
+        "chapterTitle"
+    ).textContent = game.title;
+
+
+    try {
+
+        const response =
+            await fetch(game.file);
+
+        if (!response.ok) {
+            throw new Error(
+                "Question file could not be loaded."
+            );
+        }
+
+        const text =
+            await response.text();
+
+        questions =
+            parseCSV(text);
+
+        if (questions.length !== 25) {
+
+            throw new Error(
+                "This game requires exactly 25 questions."
+            );
+        }
+
+        chooseSurpriseQuestions();
+
+        buildBoard();
+
+    }
+
+    catch(error) {
+
+        showError(
+            "The game questions could not be loaded. " +
+            "Please verify that the CSV file is inside " +
+            "the questions folder."
+        );
+
+        console.error(error);
+    }
+}
+
+
+function parseCSV(text) {
+
+    const rows = [];
+
+    let row = [];
+    let field = "";
+    let insideQuotes = false;
+
+
+    for (
+        let i = 0;
+        i < text.length;
+        i++
+    ) {
+
+        const char = text[i];
+
+        const next =
+            text[i + 1];
+
+
+        if (char === '"') {
+
+            if (
+                insideQuotes &&
+                next === '"'
+            ) {
+
+                field += '"';
+                i++;
+
+            }
+
+            else {
+
+                insideQuotes =
+                    !insideQuotes;
+
+            }
+
+        }
+
+        else if (
+            char === "," &&
+            !insideQuotes
+        ) {
+
+            row.push(field);
+
+            field = "";
+
+        }
+
+        else if (
+            (char === "\n" ||
+             char === "\r") &&
+            !insideQuotes
+        ) {
+
+            if (
+                char === "\r" &&
+                next === "\n"
+            ) {
+                i++;
+            }
+
+            row.push(field);
+
+            if (
+                row.some(
+                    value =>
+                    value.trim() !== ""
+                )
+            ) {
+
+                rows.push(row);
+
+            }
+
+            row = [];
+            field = "";
+
+        }
+
+        else {
+
+            field += char;
+
+        }
+    }
+
+
+    if (
+        field.length > 0 ||
+        row.length > 0
+    ) {
+
+        row.push(field);
+
+        rows.push(row);
+    }
+
+
+    const headers =
+        rows[0].map(
+            h =>
+            h.replace(
+                /^\uFEFF/,
+                ""
+            ).trim()
+        );
+
+
+    return rows
+        .slice(1)
+        .map(row => {
+
+            const obj = {};
+
+            headers.forEach(
+                (header,index) => {
+
+                    obj[header] =
+                        (
+                            row[index] || ""
+                        ).trim();
+
+                }
+            );
+
+            obj.Points =
+                Number(obj.Points);
+
+            return obj;
+
+        })
+        .filter(
+            q => q.Category
+        );
+}
+
+
+function chooseSurpriseQuestions() {
+
+    surpriseQuestions.clear();
+
+    while (
+        surpriseQuestions.size < 2
+    ) {
+
+        const index =
+            Math.floor(
+                Math.random() *
+                questions.length
+            );
+
+        surpriseQuestions.add(index);
+
+    }
+}
+
+
+function buildBoard() {
+
+    const board =
+        document.getElementById("board");
+
+    board.innerHTML = "";
+
+
+    const categories =
+        [...new Set(
+            questions.map(
+                q => q.Category
+            )
+        )];
+
+
+    if (categories.length !== 5) {
+
+        showError(
+            "This game requires exactly 5 categories."
+        );
+
+        return;
+    }
+
+
+    categories.forEach(category => {
+
+        const header =
+            document.createElement("div");
+
+        header.className =
+            "category";
+
+        header.textContent =
+            category;
+
+        board.appendChild(header);
+
+    });
+
+
+    const pointValues =
+        [100,200,300,400,500];
+
+
+    pointValues.forEach(points => {
+
+        categories.forEach(category => {
+
+            const qIndex =
+                questions.findIndex(
+                    q =>
+                    q.Category === category &&
+                    q.Points === points
+                );
+
+
+            const cell =
+                document.createElement("button");
+
+            cell.className =
+                "question-cell";
+
+            cell.textContent =
+                "$" + points;
+
+
+            if (qIndex >= 0) {
+
+                cell.onclick =
+                    () =>
+                    openQuestion(
+                        qIndex,
+                        cell
+                    );
+
+            }
+
+            else {
+
+                cell.textContent = "—";
+                cell.disabled = true;
+
+            }
+
+
+            board.appendChild(cell);
+
+        });
+
+    });
+
+}
+
+
+function openQuestion(
+    index,
+    cell
+) {
+
+    if (
+        cell.classList.contains(
+            "completed"
+        )
+    ) {
+        return;
+    }
+
+
+    currentQuestion =
+        questions[index];
+
+    currentCell = cell;
+
+
+    document.getElementById(
+        "modalScripture"
+    ).textContent =
+        currentQuestion.Scripture;
+
+
+    document.getElementById(
+        "modalQuestion"
+    ).textContent =
+        currentQuestion.Question;
+
+
+    const answers =
+        document.getElementById(
+            "modalAnswers"
+        );
+
+    answers.innerHTML = "";
+
+
+    ["A","B","C","D"]
+        .forEach(letter => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className =
+                "answer-choice";
+
+            div.dataset.letter =
+                letter;
+
+            div.innerHTML =
+                "<strong>" +
+                letter +
+                ".</strong> " +
+                currentQuestion[
+                    letter
+                ];
+
+            answers.appendChild(div);
+
+        });
+
+
+    const surpriseArea =
+        document.getElementById(
+            "surpriseArea"
+        );
+
+    surpriseArea.innerHTML = "";
+
+
+    if (
+        surpriseQuestions.has(index)
+    ) {
+
+        surpriseArea.innerHTML = `
+
+        <div class="surprise">
+
+            <h2>
+                SURPRISE JEOPARDY!
+            </h2>
+
+            <div id="wagerArea">
+
+                <label>
+                    Team:
+                </label>
+
+                <select id="wagerTeam">
+                    <option value="1">Team 1</option>
+                    <option value="2">Team 2</option>
+                    <option value="3">Team 3</option>
+                </select>
+
+                <br><br>
+
+                <label>
+                    Wager:
+                </label>
+
+                <input
+                    id="wagerAmount"
+                    type="number"
+                    min="0"
+                    value="${currentQuestion.Points}"
+                >
+
+                <br><br>
+
+                <button
+                    onclick="lockWager()">
+                    Lock Wager
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+    else {
+
+        currentWager = 0;
+        wageringTeam = null;
+
+    }
+
+
+    document.getElementById(
+        "questionModal"
+    ).style.display =
+        "block";
+}
+
+
+function lockWager() {
+
+    wageringTeam =
+        Number(
+            document.getElementById(
+                "wagerTeam"
+            ).value
+        );
+
+    currentWager =
+        Number(
+            document.getElementById(
+                "wagerAmount"
+            ).value
+        ) || 0;
+
+
+    document.getElementById(
+        "wagerArea"
+    ).innerHTML = `
+
+        <strong>
+            Team ${wageringTeam}
+            wagered $${currentWager}
+        </strong>
+
+    `;
+}
+
+
+function revealAnswer() {
+
+    if (!currentQuestion) {
+        return;
+    }
+
+
+    const correct =
+        currentQuestion.Correct
+            .trim()
+            .toUpperCase();
+
+
+    document
+        .querySelectorAll(
+            ".answer-choice"
+        )
+        .forEach(choice => {
+
+            if (
+                choice.dataset.letter ===
+                correct
+            ) {
+
+                choice.classList.add(
+                    "correct"
+                );
+
+            }
+
+        });
+}
+
+
+function finishQuestion() {
+
+    if (currentCell) {
+
+        currentCell.classList.add(
+            "completed"
+        );
+
+        currentCell.textContent =
+            "✓";
+
+        currentCell.onclick = null;
+    }
+
+
+    document.getElementById(
+        "questionModal"
+    ).style.display =
+        "none";
+
+
+    currentQuestion = null;
+    currentCell = null;
+    currentWager = 0;
+    wageringTeam = null;
+}
+
+
+function adjustScore(
+    team,
+    amount
+) {
+
+    scores[team - 1] += amount;
+
+    document.getElementById(
+        "score" + team
+    ).textContent =
+        scores[team - 1];
+}
+
+
+function resetGame() {
+
+    const confirmed =
+        confirm(
+            "Reset the board and all team scores?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    scores = [0,0,0];
+
+    for (
+        let team = 1;
+        team <= 3;
+        team++
+    ) {
+
+        document.getElementById(
+            "score" + team
+        ).textContent = "0";
+
+    }
+
+
+    chooseSurpriseQuestions();
+
+    buildBoard();
+}
+
+
+function showError(message) {
+
+    document.querySelector(
+        ".board-wrap"
+    ).innerHTML = `
+
+        <div class="error">
+            <h2>
+                Game Could Not Load
+            </h2>
+
+            <p>
+                ${message}
+            </p>
+        </div>
+
+    `;
+}
+
+
+window.onclick =
+function(event) {
+
+    const modal =
+        document.getElementById(
+            "questionModal"
+        );
+
+    if (event.target === modal) {
+
+        finishQuestion();
+
+    }
+};
+
+
+startGame();
+
+</script>
+
+</body>
+</html>
