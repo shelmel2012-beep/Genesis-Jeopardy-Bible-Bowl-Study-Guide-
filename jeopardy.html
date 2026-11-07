@@ -49,7 +49,7 @@
         border: 2px solid #f7c928;
         border-radius: 10px;
         padding: 12px 18px;
-        min-width: 170px;
+        min-width: 180px;
     }
 
     .team-name {
@@ -59,15 +59,18 @@
     }
 
     .score {
-        font-size: 26px;
+        font-size: 28px;
         color: #f7c928;
         margin-bottom: 8px;
     }
 
     .score-buttons button {
         margin: 3px;
-        padding: 6px 10px;
+        padding: 7px 10px;
         cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
     }
 
     .board-wrap {
@@ -157,16 +160,26 @@
         height: 100%;
         overflow: auto;
         background: rgba(0,0,0,.88);
-        padding: 30px 15px;
+        padding: 25px 15px;
     }
 
     .modal-content {
         background: #0718a0;
         border: 4px solid #f7c928;
         border-radius: 14px;
-        max-width: 800px;
-        margin: 25px auto;
+        max-width: 860px;
+        margin: 20px auto;
         padding: 28px;
+    }
+
+    .question-value {
+        display: inline-block;
+        background: #050b4d;
+        color: #f7c928;
+        padding: 7px 13px;
+        border-radius: 999px;
+        font-weight: bold;
+        margin-bottom: 12px;
     }
 
     .scripture {
@@ -179,7 +192,25 @@
     .question-text {
         font-size: 25px;
         line-height: 1.4;
-        margin-bottom: 24px;
+        margin-bottom: 22px;
+    }
+
+    .team-select-area {
+        background: #050b4d;
+        padding: 14px;
+        border-radius: 10px;
+        margin-bottom: 18px;
+    }
+
+    .team-select-area label {
+        font-weight: bold;
+        margin-right: 8px;
+    }
+
+    .team-select-area select {
+        padding: 9px 12px;
+        font-size: 16px;
+        border-radius: 6px;
     }
 
     .answers {
@@ -190,21 +221,63 @@
     }
 
     .answer-choice {
+        width: 100%;
         background: white;
         color: #111;
-        padding: 13px 16px;
+        padding: 14px 16px;
+        border: 3px solid transparent;
         border-radius: 8px;
         font-size: 19px;
+        text-align: left;
+        cursor: pointer;
+        min-height: 54px;
+    }
+
+    .answer-choice:hover:not(:disabled) {
+        background: #f4f6ff;
+    }
+
+    .answer-choice.selected {
+        background: #dbe6ff;
+        border-color: #f7c928;
     }
 
     .answer-choice.correct {
         background: #b8f1bd;
+        border-color: #1d7a2e;
         color: #164d1e;
         font-weight: bold;
     }
 
+    .answer-choice.wrong {
+        background: #f5b6b6;
+        border-color: #a51d1d;
+        color: #6f1010;
+        font-weight: bold;
+    }
+
+    .answer-choice:disabled {
+        cursor: default;
+        opacity: 1;
+    }
+
+    .result-message {
+        min-height: 30px;
+        margin-top: 18px;
+        font-size: 21px;
+        font-weight: bold;
+    }
+
+    .result-message.correct-text {
+        color: #b8f1bd;
+    }
+
+    .result-message.wrong-text {
+        color: #ffd0d0;
+    }
+
     .modal-buttons {
-        margin-top: 25px;
+        margin-top: 22px;
     }
 
     .modal-buttons button {
@@ -214,43 +287,65 @@
         border-radius: 7px;
         cursor: pointer;
         font-weight: bold;
+        font-size: 16px;
     }
 
-    .reveal-btn {
+    .enter-btn {
         background: #f7c928;
+        color: #111;
+    }
+
+    .enter-btn:disabled {
+        opacity: .45;
+        cursor: not-allowed;
     }
 
     .close-btn {
         background: white;
+        color: #07116f;
+    }
+
+    .close-btn:disabled {
+        opacity: .45;
+        cursor: not-allowed;
     }
 
     .surprise {
         background: #f7c928;
         color: #07116f;
-        padding: 25px;
+        padding: 20px;
         border-radius: 12px;
         margin-bottom: 20px;
     }
 
     .surprise h2 {
-        margin-top: 0;
-        font-size: 34px;
+        margin: 0 0 10px;
+        font-size: 32px;
     }
 
-    #wagerArea {
-        margin: 15px 0;
+    .surprise p {
+        margin: 6px 0 12px;
+        font-weight: bold;
     }
 
-    #wagerArea input {
-        width: 150px;
-        padding: 9px;
-        font-size: 18px;
-        text-align: center;
+    .wager-row {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 12px;
     }
 
-    #wagerArea select {
-        padding: 9px;
-        font-size: 17px;
+    .wager-row select {
+        padding: 9px 12px;
+        font-size: 16px;
+        border-radius: 6px;
+    }
+
+    .wager-status {
+        margin-top: 12px;
+        font-weight: bold;
     }
 
     .error {
@@ -273,6 +368,10 @@
 
         .modal-content {
             padding: 20px 15px;
+        }
+
+        .answer-choice {
+            font-size: 17px;
         }
     }
 </style>
@@ -325,72 +424,95 @@
     <a class="home-btn" href="index.html">Return to Study Center</a>
 </div>
 
-
 <div id="questionModal" class="modal">
+
     <div class="modal-content">
 
         <div id="surpriseArea"></div>
+
+        <div class="question-value" id="modalValue"></div>
 
         <div class="scripture" id="modalScripture"></div>
 
         <div class="question-text" id="modalQuestion"></div>
 
+        <div class="team-select-area">
+            <label for="answeringTeam">Answering Team:</label>
+
+            <select id="answeringTeam">
+                <option value="1">Team 1</option>
+                <option value="2">Team 2</option>
+                <option value="3">Team 3</option>
+            </select>
+        </div>
+
         <div class="answers" id="modalAnswers"></div>
+
+        <div class="result-message" id="resultMessage"></div>
 
         <div class="modal-buttons">
 
             <button
-                class="reveal-btn"
-                onclick="revealAnswer()">
-                Reveal Answer
+                class="enter-btn"
+                id="enterAnswerBtn"
+                onclick="enterAnswer()"
+                disabled>
+                Enter Answer
             </button>
 
             <button
                 class="close-btn"
-                onclick="finishQuestion()">
+                id="returnBtn"
+                onclick="finishQuestion()"
+                disabled>
                 Return to Board
             </button>
 
         </div>
 
     </div>
-</div>
 
+</div>
 
 <script>
 
 const GAME_SETS = {
 
-  genesis3: {
-    title: "Genesis Chapter 3",
-    file: "Genesis 3 Jeopardy Questions.csv"
-},
+    genesis3: {
+        title: "Genesis Chapter 3",
+        file: "Genesis 3 Jeopardy Questions.csv"
+    },
 
-genesis4: {
-    title: "Genesis Chapter 4",
-    file: "Genesis 4 Jeopardy Questions.csv"
-}
+    genesis4: {
+        title: "Genesis Chapter 4",
+        file: "Genesis 4 Jeopardy Questions.csv"
+    }
 
 };
 
 
 let questions = [];
 let currentQuestion = null;
+let currentQuestionIndex = null;
 let currentCell = null;
 
 let scores = [0,0,0];
 
 let surpriseQuestions = new Set();
 
+let selectedAnswer = null;
+let answerLocked = false;
+
 let currentWager = 0;
-let wageringTeam = null;
+let surpriseLocked = false;
 
 
 function getGameSet() {
 
-    const params = new URLSearchParams(
-        window.location.search
-    );
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
     return params.get("set") || "genesis3";
 }
@@ -410,6 +532,7 @@ async function startGame() {
 
         return;
     }
+
 
     document.getElementById(
         "chapterTitle"
@@ -450,8 +573,8 @@ async function startGame() {
 
         showError(
             "The game questions could not be loaded. " +
-            "Please verify that the CSV file is inside " +
-            "the questions folder."
+            "Please verify that the CSV file is uploaded " +
+            "in the same repository as jeopardy.html."
         );
 
         console.error(error);
@@ -717,10 +840,7 @@ function buildBoard() {
 }
 
 
-function openQuestion(
-    index,
-    cell
-) {
+function openQuestion(index, cell) {
 
     if (
         cell.classList.contains(
@@ -734,7 +854,22 @@ function openQuestion(
     currentQuestion =
         questions[index];
 
+    currentQuestionIndex =
+        index;
+
     currentCell = cell;
+
+    selectedAnswer = null;
+    answerLocked = false;
+
+    currentWager = 0;
+    surpriseLocked = false;
+
+
+    document.getElementById(
+        "modalValue"
+    ).textContent =
+        "$" + currentQuestion.Points;
 
 
     document.getElementById(
@@ -749,6 +884,31 @@ function openQuestion(
         currentQuestion.Question;
 
 
+    document.getElementById(
+        "resultMessage"
+    ).textContent = "";
+
+    document.getElementById(
+        "resultMessage"
+    ).className =
+        "result-message";
+
+
+    document.getElementById(
+        "enterAnswerBtn"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "returnBtn"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "answeringTeam"
+    ).disabled = false;
+
+
     const answers =
         document.getElementById(
             "modalAnswers"
@@ -760,18 +920,20 @@ function openQuestion(
     ["A","B","C","D"]
         .forEach(letter => {
 
-            const div =
+            const button =
                 document.createElement(
-                    "div"
+                    "button"
                 );
 
-            div.className =
+            button.type = "button";
+
+            button.className =
                 "answer-choice";
 
-            div.dataset.letter =
+            button.dataset.letter =
                 letter;
 
-            div.innerHTML =
+            button.innerHTML =
                 "<strong>" +
                 letter +
                 ".</strong> " +
@@ -779,10 +941,78 @@ function openQuestion(
                     letter
                 ];
 
-            answers.appendChild(div);
+            button.onclick =
+                () =>
+                selectAnswer(
+                    letter,
+                    button
+                );
+
+            answers.appendChild(button);
 
         });
 
+
+    buildSurpriseArea(index);
+
+
+    document.getElementById(
+        "questionModal"
+    ).style.display =
+        "block";
+}
+
+
+function selectAnswer(letter, button) {
+
+    if (answerLocked) {
+        return;
+    }
+
+
+    if (
+        surpriseQuestions.has(
+            currentQuestionIndex
+        ) &&
+        !surpriseLocked
+    ) {
+
+        alert(
+            "Lock in the Surprise Jeopardy wager first."
+        );
+
+        return;
+    }
+
+
+    selectedAnswer = letter;
+
+
+    document
+        .querySelectorAll(
+            ".answer-choice"
+        )
+        .forEach(choice => {
+
+            choice.classList.remove(
+                "selected"
+            );
+
+        });
+
+
+    button.classList.add(
+        "selected"
+    );
+
+
+    document.getElementById(
+        "enterAnswerBtn"
+    ).disabled = false;
+}
+
+
+function buildSurpriseArea(index) {
 
     const surpriseArea =
         document.getElementById(
@@ -793,10 +1023,13 @@ function openQuestion(
 
 
     if (
-        surpriseQuestions.has(index)
+        !surpriseQuestions.has(index)
     ) {
+        return;
+    }
 
-        surpriseArea.innerHTML = `
+
+    surpriseArea.innerHTML = `
 
         <div class="surprise">
 
@@ -804,102 +1037,278 @@ function openQuestion(
                 SURPRISE JEOPARDY!
             </h2>
 
-            <div id="wagerArea">
+            <p>
+                Choose the answering team and lock in the wager before selecting an answer.
+            </p>
 
-                <label>
-                    Team:
-                </label>
+            <div class="wager-row">
 
-                <select id="wagerTeam">
-                    <option value="1">Team 1</option>
-                    <option value="2">Team 2</option>
-                    <option value="3">Team 3</option>
-                </select>
-
-                <br><br>
-
-                <label>
+                <label for="wagerAmount">
                     Wager:
                 </label>
 
-                <input
-                    id="wagerAmount"
-                    type="number"
-                    min="0"
-                    value="${currentQuestion.Points}"
-                >
-
-                <br><br>
+                <select id="wagerAmount"></select>
 
                 <button
+                    type="button"
                     onclick="lockWager()">
                     Lock Wager
                 </button>
 
             </div>
 
+            <div
+                class="wager-status"
+                id="wagerStatus">
+            </div>
+
         </div>
 
-        `;
+    `;
 
-    }
 
-    else {
-
-        currentWager = 0;
-        wageringTeam = null;
-
-    }
+    updateWagerOptions();
 
 
     document.getElementById(
-        "questionModal"
-    ).style.display =
-        "block";
+        "answeringTeam"
+    ).onchange =
+        updateWagerOptions;
+}
+
+
+function updateWagerOptions() {
+
+    if (
+        currentQuestionIndex === null ||
+        !surpriseQuestions.has(
+            currentQuestionIndex
+        )
+    ) {
+        return;
+    }
+
+
+    if (surpriseLocked) {
+        return;
+    }
+
+
+    const team =
+        Number(
+            document.getElementById(
+                "answeringTeam"
+            ).value
+        );
+
+
+    const teamScore =
+        scores[team - 1];
+
+
+    const maxWager =
+        Math.max(
+            teamScore,
+            currentQuestion.Points
+        );
+
+
+    const wagerSelect =
+        document.getElementById(
+            "wagerAmount"
+        );
+
+    if (!wagerSelect) {
+        return;
+    }
+
+
+    wagerSelect.innerHTML = "";
+
+
+    const safeMaximum =
+        Math.max(
+            100,
+            Math.floor(
+                maxWager / 100
+            ) * 100
+        );
+
+
+    for (
+        let wager = 100;
+        wager <= safeMaximum;
+        wager += 100
+    ) {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            wager;
+
+        option.textContent =
+            "$" + wager;
+
+        wagerSelect.appendChild(
+            option
+        );
+
+    }
+
+
+    const preferred =
+        Math.min(
+            currentQuestion.Points,
+            safeMaximum
+        );
+
+
+    wagerSelect.value =
+        preferred;
 }
 
 
 function lockWager() {
 
-    wageringTeam =
-        Number(
-            document.getElementById(
-                "wagerTeam"
-            ).value
-        );
-
-    currentWager =
-        Number(
-            document.getElementById(
-                "wagerAmount"
-            ).value
-        ) || 0;
-
-
-    document.getElementById(
-        "wagerArea"
-    ).innerHTML = `
-
-        <strong>
-            Team ${wageringTeam}
-            wagered $${currentWager}
-        </strong>
-
-    `;
-}
-
-
-function revealAnswer() {
-
-    if (!currentQuestion) {
+    if (surpriseLocked) {
         return;
     }
 
 
-    const correct =
+    const wagerSelect =
+        document.getElementById(
+            "wagerAmount"
+        );
+
+
+    if (!wagerSelect) {
+        return;
+    }
+
+
+    const wager =
+        Number(
+            wagerSelect.value
+        );
+
+
+    if (
+        !Number.isFinite(wager) ||
+        wager < 100 ||
+        wager % 100 !== 0
+    ) {
+
+        alert(
+            "Wagers must be in $100 increments."
+        );
+
+        return;
+    }
+
+
+    const team =
+        Number(
+            document.getElementById(
+                "answeringTeam"
+            ).value
+        );
+
+
+    const teamScore =
+        scores[team - 1];
+
+
+    const maxWager =
+        Math.max(
+            teamScore,
+            currentQuestion.Points
+        );
+
+
+    if (wager > maxWager) {
+
+        alert(
+            "That wager is higher than the allowed maximum."
+        );
+
+        updateWagerOptions();
+
+        return;
+    }
+
+
+    currentWager = wager;
+    surpriseLocked = true;
+
+
+    document.getElementById(
+        "answeringTeam"
+    ).disabled = true;
+
+
+    wagerSelect.disabled = true;
+
+
+    const lockButton =
+        wagerSelect.parentElement
+            .querySelector("button");
+
+    if (lockButton) {
+        lockButton.disabled = true;
+    }
+
+
+    document.getElementById(
+        "wagerStatus"
+    ).textContent =
+        "Wager locked: Team " +
+        team +
+        " for $" +
+        currentWager;
+}
+
+
+function enterAnswer() {
+
+    if (
+        answerLocked ||
+        !selectedAnswer ||
+        !currentQuestion
+    ) {
+        return;
+    }
+
+
+    if (
+        surpriseQuestions.has(
+            currentQuestionIndex
+        ) &&
+        !surpriseLocked
+    ) {
+
+        alert(
+            "Lock in the Surprise Jeopardy wager first."
+        );
+
+        return;
+    }
+
+
+    answerLocked = true;
+
+
+    const correctLetter =
         currentQuestion.Correct
             .trim()
             .toUpperCase();
+
+
+    const isCorrect =
+        selectedAnswer ===
+        correctLetter;
 
 
     document
@@ -908,9 +1317,12 @@ function revealAnswer() {
         )
         .forEach(choice => {
 
+            choice.disabled = true;
+
+
             if (
                 choice.dataset.letter ===
-                correct
+                correctLetter
             ) {
 
                 choice.classList.add(
@@ -919,11 +1331,117 @@ function revealAnswer() {
 
             }
 
+
+            if (
+                choice.dataset.letter ===
+                selectedAnswer &&
+                !isCorrect
+            ) {
+
+                choice.classList.add(
+                    "wrong"
+                );
+
+            }
+
         });
+
+
+    const team =
+        Number(
+            document.getElementById(
+                "answeringTeam"
+            ).value
+        );
+
+
+    let scoreChange =
+        currentQuestion.Points;
+
+
+    if (
+        surpriseQuestions.has(
+            currentQuestionIndex
+        )
+    ) {
+
+        scoreChange =
+            currentWager;
+
+    }
+
+
+    if (!isCorrect) {
+
+        scoreChange =
+            -scoreChange;
+
+    }
+
+
+    adjustScore(
+        team,
+        scoreChange
+    );
+
+
+    const result =
+        document.getElementById(
+            "resultMessage"
+        );
+
+
+    if (isCorrect) {
+
+        result.textContent =
+            "Correct! Team " +
+            team +
+            " earns $" +
+            Math.abs(scoreChange) +
+            ".";
+
+        result.className =
+            "result-message correct-text";
+
+    }
+
+    else {
+
+        result.textContent =
+            "Incorrect. Team " +
+            team +
+            " loses $" +
+            Math.abs(scoreChange) +
+            ". The correct answer is shown in green.";
+
+        result.className =
+            "result-message wrong-text";
+
+    }
+
+
+    document.getElementById(
+        "enterAnswerBtn"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "answeringTeam"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "returnBtn"
+    ).disabled = false;
 }
 
 
 function finishQuestion() {
+
+    if (!answerLocked) {
+        return;
+    }
+
 
     if (currentCell) {
 
@@ -945,18 +1463,33 @@ function finishQuestion() {
 
 
     currentQuestion = null;
+    currentQuestionIndex = null;
     currentCell = null;
+
+    selectedAnswer = null;
+    answerLocked = false;
+
     currentWager = 0;
-    wageringTeam = null;
+    surpriseLocked = false;
+
+
+    document.getElementById(
+        "answeringTeam"
+    ).onchange = null;
 }
 
 
-function adjustScore(
-    team,
-    amount
-) {
+function adjustScore(team, amount) {
+
+    if (
+        amount % 100 !== 0
+    ) {
+        return;
+    }
+
 
     scores[team - 1] += amount;
+
 
     document.getElementById(
         "score" + team
@@ -978,6 +1511,7 @@ function resetGame() {
 
 
     scores = [0,0,0];
+
 
     for (
         let team = 1;
@@ -1005,6 +1539,7 @@ function showError(message) {
     ).innerHTML = `
 
         <div class="error">
+
             <h2>
                 Game Could Not Load
             </h2>
@@ -1012,26 +1547,11 @@ function showError(message) {
             <p>
                 ${message}
             </p>
+
         </div>
 
     `;
 }
-
-
-window.onclick =
-function(event) {
-
-    const modal =
-        document.getElementById(
-            "questionModal"
-        );
-
-    if (event.target === modal) {
-
-        finishQuestion();
-
-    }
-};
 
 
 startGame();
