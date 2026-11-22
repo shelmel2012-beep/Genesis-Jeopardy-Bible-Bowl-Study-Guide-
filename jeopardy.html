@@ -2,18 +2,10 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>
-    Bible Bowl Jeopardy
-</title>
-
+<title>Bible Bowl Jeopardy</title>
 
 <style>
 
@@ -21,950 +13,371 @@
     box-sizing: border-box;
 }
 
-
 body {
-
     margin: 0;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:
-        #07116f;
-
-    color:
-        white;
-
-    text-align:
-        center;
-
+    font-family: Arial, Helvetica, sans-serif;
+    background: #07116f;
+    color: white;
+    text-align: center;
 }
-
-
-/* =================================
-   HEADER
-================================= */
 
 header {
-
-    background:
-        #050b4d;
-
-    padding:
-        18px;
-
-    border-bottom:
-        4px solid
-        #f7c928;
-
+    background: #050b4d;
+    padding: 18px;
+    border-bottom: 4px solid #f7c928;
 }
-
 
 h1 {
-
     margin: 0;
-
-    color:
-        #f7c928;
-
-    font-size:
-        34px;
-
+    color: #f7c928;
+    font-size: 34px;
 }
-
 
 #chapterTitle {
-
-    margin-top:
-        8px;
-
-    font-size:
-        20px;
-
+    margin-top: 8px;
+    font-size: 20px;
 }
-
-
-/* =================================
-   TEAM SCORES
-================================= */
 
 .scores {
-
-    display:
-        flex;
-
-    justify-content:
-        center;
-
-    gap:
-        18px;
-
-    flex-wrap:
-        wrap;
-
-    padding:
-        18px 10px;
-
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 18px 10px;
 }
-
 
 .team {
-
-    background:
-        #101b82;
-
-    border:
-        2px solid
-        #f7c928;
-
-    border-radius:
-        10px;
-
-    padding:
-        12px 18px;
-
-    min-width:
-        180px;
-
+    background: #101b82;
+    border: 2px solid #f7c928;
+    border-radius: 10px;
+    padding: 12px 18px;
+    min-width: 180px;
 }
-
 
 .team-name {
-
-    font-weight:
-        bold;
-
-    font-size:
-        18px;
-
-    margin-bottom:
-        6px;
-
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 6px;
 }
-
 
 .score {
-
-    font-size:
-        28px;
-
-    color:
-        #f7c928;
-
-    margin-bottom:
-        8px;
-
+    font-size: 28px;
+    color: #f7c928;
+    margin-bottom: 8px;
 }
-
 
 .score-buttons button {
-
-    margin:
-        3px;
-
-    padding:
-        7px 10px;
-
-    cursor:
-        pointer;
-
-    border:
-        none;
-
-    border-radius:
-        5px;
-
-    font-weight:
-        bold;
-
+    margin: 3px;
+    padding: 7px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
 }
-
-
-/* =================================
-   BOARD
-================================= */
 
 .board-wrap {
-
-    width:
-        96%;
-
-    max-width:
-        1200px;
-
-    margin:
-        0 auto 25px;
-
-    overflow-x:
-        auto;
-
+    width: 96%;
+    max-width: 1200px;
+    margin: 0 auto 25px;
+    overflow-x: auto;
 }
-
 
 #board {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(
-            5,
-            minmax(150px,1fr)
-        );
-
-    gap:
-        5px;
-
-    min-width:
-        800px;
-
-    background:
-        #050505;
-
-    padding:
-        5px;
-
+    display: grid;
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    gap: 5px;
+    min-width: 800px;
+    background: #050505;
+    padding: 5px;
 }
-
 
 .category {
-
-    background:
-        #101b82;
-
-    color:
-        white;
-
-    min-height:
-        100px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    padding:
-        10px;
-
-    font-size:
-        18px;
-
-    font-weight:
-        bold;
-
-    text-transform:
-        uppercase;
-
+    background: #101b82;
+    color: white;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
-
 
 .question-cell {
-
-    background:
-        #0718a0;
-
-    color:
-        #f7c928;
-
-    height:
-        100px;
-
-    border:
-        none;
-
-    cursor:
-        pointer;
-
-    font-size:
-        28px;
-
-    font-weight:
-        bold;
-
+    background: #0718a0;
+    color: #f7c928;
+    height: 100px;
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: bold;
 }
-
 
 .question-cell:hover {
-
-    background:
-        #142bc2;
-
+    background: #142bc2;
 }
-
 
 .question-cell.completed {
-
-    background:
-        #171717;
-
-    color:
-        #d4d4d4;
-
-    cursor:
-        default;
-
-    font-size:
-        32px;
-
+    background: #171717;
+    color: #d4d4d4;
+    cursor: default;
+    font-size: 32px;
 }
-
-
-/* =================================
-   CONTROLS
-================================= */
 
 .controls {
-
-    margin:
-        20px 0 35px;
-
+    margin: 20px 0 35px;
 }
-
 
 .controls button,
 .controls a {
-
-    display:
-        inline-block;
-
-    margin:
-        6px;
-
-    padding:
-        11px 18px;
-
-    border:
-        none;
-
-    border-radius:
-        7px;
-
-    font-size:
-        15px;
-
-    font-weight:
-        bold;
-
-    cursor:
-        pointer;
-
-    text-decoration:
-        none;
-
+    display: inline-block;
+    margin: 6px;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
 }
-
 
 .reset-btn {
-
-    background:
-        #f7c928;
-
-    color:
-        #111;
-
+    background: #f7c928;
+    color: #111;
 }
-
 
 .home-btn {
-
-    background:
-        white;
-
-    color:
-        #07116f;
-
+    background: white;
+    color: #07116f;
 }
-
-
-/* =================================
-   QUESTION MODAL
-================================= */
 
 .modal {
-
-    display:
-        none;
-
-    position:
-        fixed;
-
-    z-index:
-        1000;
-
-    left:
-        0;
-
-    top:
-        0;
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    overflow:
-        auto;
-
-    background:
-        rgba(0,0,0,.88);
-
-    padding:
-        25px 15px;
-
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0,0,0,.88);
+    padding: 25px 15px;
 }
-
 
 .modal-content {
-
-    background:
-        #0718a0;
-
-    border:
-        4px solid
-        #f7c928;
-
-    border-radius:
-        14px;
-
-    max-width:
-        860px;
-
-    margin:
-        20px auto;
-
-    padding:
-        28px;
-
+    background: #0718a0;
+    border: 4px solid #f7c928;
+    border-radius: 14px;
+    max-width: 860px;
+    margin: 20px auto;
+    padding: 28px;
 }
-
 
 .question-value {
-
-    display:
-        inline-block;
-
-    background:
-        #050b4d;
-
-    color:
-        #f7c928;
-
-    padding:
-        7px 13px;
-
-    border-radius:
-        999px;
-
-    font-weight:
-        bold;
-
-    margin-bottom:
-        12px;
-
+    display: inline-block;
+    background: #050b4d;
+    color: #f7c928;
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-weight: bold;
+    margin-bottom: 12px;
 }
-
 
 .scripture {
-
-    color:
-        #f7c928;
-
-    font-size:
-        21px;
-
-    font-weight:
-        bold;
-
-    margin-bottom:
-        16px;
-
+    color: #f7c928;
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 16px;
 }
-
 
 .question-text {
-
-    font-size:
-        25px;
-
-    line-height:
-        1.4;
-
-    margin-bottom:
-        22px;
-
+    font-size: 25px;
+    line-height: 1.4;
+    margin-bottom: 22px;
 }
-
-
-/* =================================
-   TEAM SELECTION
-================================= */
 
 .team-select-area {
-
-    background:
-        #050b4d;
-
-    padding:
-        14px;
-
-    border-radius:
-        10px;
-
-    margin-bottom:
-        18px;
-
+    background: #050b4d;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 18px;
 }
-
 
 .team-select-area label {
-
-    font-weight:
-        bold;
-
-    margin-right:
-        8px;
-
+    font-weight: bold;
+    margin-right: 8px;
 }
-
 
 .team-select-area select {
-
-    padding:
-        9px 12px;
-
-    font-size:
-        16px;
-
-    border-radius:
-        6px;
-
+    padding: 9px 12px;
+    font-size: 16px;
+    border-radius: 6px;
 }
-
-
-/* =================================
-   ANSWERS
-================================= */
 
 .answers {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        1fr;
-
-    gap:
-        12px;
-
-    text-align:
-        left;
-
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: left;
 }
-
 
 .answer-choice {
-
-    width:
-        100%;
-
-    background:
-        white;
-
-    color:
-        #111;
-
-    padding:
-        14px 16px;
-
-    border:
-        3px solid
-        transparent;
-
-    border-radius:
-        8px;
-
-    font-size:
-        19px;
-
-    text-align:
-        left;
-
-    cursor:
-        pointer;
-
-    min-height:
-        54px;
-
+    width: 100%;
+    background: white;
+    color: #111;
+    padding: 14px 16px;
+    border: 3px solid transparent;
+    border-radius: 8px;
+    font-size: 19px;
+    text-align: left;
+    cursor: pointer;
+    min-height: 54px;
 }
-
 
 .answer-choice:hover:not(:disabled) {
-
-    background:
-        #f4f6ff;
-
+    background: #f4f6ff;
 }
-
 
 .answer-choice.selected {
-
-    background:
-        #dbe6ff;
-
-    border-color:
-        #f7c928;
-
+    background: #dbe6ff;
+    border-color: #f7c928;
 }
-
 
 .answer-choice.correct {
-
-    background:
-        #b8f1bd;
-
-    border-color:
-        #1d7a2e;
-
-    color:
-        #164d1e;
-
-    font-weight:
-        bold;
-
+    background: #b8f1bd;
+    border-color: #1d7a2e;
+    color: #164d1e;
+    font-weight: bold;
 }
-
 
 .answer-choice.wrong {
-
-    background:
-        #f5b6b6;
-
-    border-color:
-        #a51d1d;
-
-    color:
-        #6f1010;
-
-    font-weight:
-        bold;
-
+    background: #f5b6b6;
+    border-color: #a51d1d;
+    color: #6f1010;
+    font-weight: bold;
 }
-
 
 .answer-choice:disabled {
-
-    cursor:
-        default;
-
-    opacity:
-        1;
-
+    cursor: default;
+    opacity: 1;
 }
-
-
-/* =================================
-   RESULT MESSAGE
-================================= */
 
 .result-message {
-
-    min-height:
-        30px;
-
-    margin-top:
-        18px;
-
-    font-size:
-        21px;
-
-    font-weight:
-        bold;
-
+    min-height: 30px;
+    margin-top: 18px;
+    font-size: 21px;
+    font-weight: bold;
 }
 
-
-.result-message.correct-text {
-
-    color:
-        #b8f1bd;
-
+.correct-text {
+    color: #b8f1bd;
 }
 
-
-.result-message.wrong-text {
-
-    color:
-        #ffd0d0;
-
+.wrong-text {
+    color: #ffd0d0;
 }
-
-
-/* =================================
-   MODAL BUTTONS
-================================= */
 
 .modal-buttons {
-
-    margin-top:
-        22px;
-
+    margin-top: 22px;
 }
-
 
 .modal-buttons button {
-
-    padding:
-        11px 16px;
-
-    margin:
-        5px;
-
-    border:
-        none;
-
-    border-radius:
-        7px;
-
-    cursor:
-        pointer;
-
-    font-weight:
-        bold;
-
-    font-size:
-        16px;
-
+    padding: 11px 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
 }
-
 
 .enter-btn {
-
-    background:
-        #f7c928;
-
-    color:
-        #111;
-
+    background: #f7c928;
+    color: #111;
 }
 
-
-.enter-btn:disabled {
-
-    opacity:
-        .45;
-
-    cursor:
-        not-allowed;
-
+.enter-btn:disabled,
+.close-btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
 }
-
 
 .close-btn {
-
-    background:
-        white;
-
-    color:
-        #07116f;
-
+    background: white;
+    color: #07116f;
 }
-
-
-.close-btn:disabled {
-
-    opacity:
-        .45;
-
-    cursor:
-        not-allowed;
-
-}
-
-
-/* =================================
-   SURPRISE JEOPARDY
-================================= */
 
 .surprise {
-
-    background:
-        #f7c928;
-
-    color:
-        #07116f;
-
-    padding:
-        20px;
-
-    border-radius:
-        12px;
-
-    margin-bottom:
-        20px;
-
+    background: #f7c928;
+    color: #07116f;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
 }
-
 
 .surprise h2 {
-
-    margin:
-        0 0 10px;
-
-    font-size:
-        32px;
-
+    margin: 0 0 10px;
+    font-size: 32px;
 }
-
-
-.surprise p {
-
-    margin:
-        6px 0 12px;
-
-    font-weight:
-        bold;
-
-}
-
 
 .wager-row {
-
-    display:
-        flex;
-
-    justify-content:
-        center;
-
-    gap:
-        12px;
-
-    align-items:
-        center;
-
-    flex-wrap:
-        wrap;
-
-    margin-top:
-        12px;
-
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
 }
-
 
 .wager-row select {
-
-    padding:
-        9px 12px;
-
-    font-size:
-        16px;
-
-    border-radius:
-        6px;
-
+    padding: 9px 12px;
+    font-size: 16px;
+    border-radius: 6px;
 }
-
 
 .wager-status {
-
-    margin-top:
-        12px;
-
-    font-weight:
-        bold;
-
+    margin-top: 12px;
+    font-weight: bold;
 }
-
-
-/* =================================
-   ERROR
-================================= */
 
 .error {
-
-    max-width:
-        750px;
-
-    margin:
-        40px auto;
-
-    padding:
-        25px;
-
-    background:
-        white;
-
-    color:
-        #a00000;
-
-    border-radius:
-        10px;
-
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 25px;
+    background: white;
+    color: #a00000;
+    border-radius: 10px;
 }
-
-
-/* =================================
-   MOBILE
-================================= */
 
 @media(max-width: 600px) {
 
     h1 {
-
-        font-size:
-            27px;
-
+        font-size: 27px;
     }
-
 
     .question-text {
-
-        font-size:
-            21px;
-
+        font-size: 21px;
     }
-
 
     .modal-content {
-
-        padding:
-            20px 15px;
-
+        padding: 20px 15px;
     }
 
-
     .answer-choice {
-
-        font-size:
-            17px;
-
+        font-size: 17px;
     }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =================================
-     HEADER
-================================= -->
-
 <header>
 
-    <h1>
-        BIBLE BOWL JEOPARDY
-    </h1>
+    <h1>BIBLE BOWL JEOPARDY</h1>
 
     <div id="chapterTitle">
         Loading...
@@ -972,13 +385,7 @@ h1 {
 
 </header>
 
-
-<!-- =================================
-     SCORES
-================================= -->
-
 <div class="scores">
-
 
     <div class="team">
 
@@ -986,28 +393,23 @@ h1 {
             Team 1
         </div>
 
-        <div
-            class="score"
-            id="score1">
+        <div class="score" id="score1">
             0
         </div>
 
         <div class="score-buttons">
 
-            <button
-                onclick="adjustScore(1,100)">
+            <button onclick="adjustScore(1,100)">
                 +100
             </button>
 
-            <button
-                onclick="adjustScore(1,-100)">
+            <button onclick="adjustScore(1,-100)">
                 -100
             </button>
 
         </div>
 
     </div>
-
 
     <div class="team">
 
@@ -1015,28 +417,23 @@ h1 {
             Team 2
         </div>
 
-        <div
-            class="score"
-            id="score2">
+        <div class="score" id="score2">
             0
         </div>
 
         <div class="score-buttons">
 
-            <button
-                onclick="adjustScore(2,100)">
+            <button onclick="adjustScore(2,100)">
                 +100
             </button>
 
-            <button
-                onclick="adjustScore(2,-100)">
+            <button onclick="adjustScore(2,-100)">
                 -100
             </button>
 
         </div>
 
     </div>
-
 
     <div class="team">
 
@@ -1044,21 +441,17 @@ h1 {
             Team 3
         </div>
 
-        <div
-            class="score"
-            id="score3">
+        <div class="score" id="score3">
             0
         </div>
 
         <div class="score-buttons">
 
-            <button
-                onclick="adjustScore(3,100)">
+            <button onclick="adjustScore(3,100)">
                 +100
             </button>
 
-            <button
-                onclick="adjustScore(3,-100)">
+            <button onclick="adjustScore(3,-100)">
                 -100
             </button>
 
@@ -1066,13 +459,7 @@ h1 {
 
     </div>
 
-
 </div>
-
-
-<!-- =================================
-     GAME BOARD
-================================= -->
 
 <div class="board-wrap">
 
@@ -1080,60 +467,46 @@ h1 {
 
 </div>
 
-
-<!-- =================================
-     CONTROLS
-================================= -->
-
 <div class="controls">
 
     <button
         class="reset-btn"
         onclick="resetGame()">
-        Reset Game
+
+        Reset & Reshuffle Game
+
     </button>
 
     <a
         class="home-btn"
         href="index.html">
+
         Return to Study Center
+
     </a>
 
 </div>
 
-
-<!-- =================================
-     QUESTION WINDOW
-================================= -->
-
-<div
-    id="questionModal"
-    class="modal">
-
+<div id="questionModal" class="modal">
 
     <div class="modal-content">
 
-
         <div id="surpriseArea"></div>
-
 
         <div
             class="question-value"
             id="modalValue">
         </div>
 
-
         <div
             class="scripture"
             id="modalScripture">
         </div>
 
-
         <div
             class="question-text"
             id="modalQuestion">
         </div>
-
 
         <div class="team-select-area">
 
@@ -1159,21 +532,17 @@ h1 {
 
         </div>
 
-
         <div
             class="answers"
             id="modalAnswers">
         </div>
-
 
         <div
             class="result-message"
             id="resultMessage">
         </div>
 
-
         <div class="modal-buttons">
-
 
             <button
                 class="enter-btn"
@@ -1185,7 +554,6 @@ h1 {
 
             </button>
 
-
             <button
                 class="close-btn"
                 id="returnBtn"
@@ -1196,124 +564,94 @@ h1 {
 
             </button>
 
-
         </div>
-
 
     </div>
 
-
 </div>
-
 
 <script>
 
-
-/* =================================
-   GAME SETS
-================================= */
-
 const GAME_SETS = {
 
-
     genesis3: {
-
-        title:
-            "Genesis Chapter 3 — Round 1",
-
-        file:
-            "Genesis 3 Jeopardy Questions.csv"
-
+        title: "Genesis Chapter 3 — Round 1",
+        file: "Genesis 3 Jeopardy Questions.csv"
     },
-
 
     genesis3b: {
-
-        title:
-            "Genesis Chapter 3 — Round 2",
-
-        file:
-            "Genesis 3 Jeopardy Questions 2.csv"
-
+        title: "Genesis Chapter 3 — Round 2",
+        file: "Genesis 3 Jeopardy Questions 2.csv"
     },
-
 
     genesis4: {
-
-        title:
-            "Genesis Chapter 4 — Round 1",
-
-        file:
-            "Genesis 4 Jeopardy Questions.csv"
-
+        title: "Genesis Chapter 4 — Round 1",
+        file: "Genesis 4 Jeopardy Questions.csv"
     },
 
-
     genesis4b: {
-
-        title:
-            "Genesis Chapter 4 — Round 2",
-
-        file:
-            "Genesis 4 Jeopardy Questions 2.csv"
-
+        title: "Genesis Chapter 4 — Round 2",
+        file: "Genesis 4 Jeopardy Questions 2.csv"
     }
-
 
 };
 
-
-
-/* =================================
-   GAME VARIABLES
-================================= */
-
+let sourceQuestions = [];
 let questions = [];
 
 let currentQuestion = null;
-
 let currentQuestionIndex = null;
-
 let currentCell = null;
 
+let scores = [0,0,0];
 
-let scores =
-    [0,0,0];
+let surpriseQuestions = new Set();
 
+let selectedAnswer = null;
+let answerLocked = false;
 
-let surpriseQuestions =
-    new Set();
+let currentWager = 0;
+let surpriseLocked = false;
 
+let displayedAnswers = [];
+let displayedCorrectLetter = "";
 
-let selectedAnswer =
-    null;
+function shuffle(array) {
 
+    const a = array.slice();
 
-let answerLocked =
-    false;
+    for (
+        let i = a.length - 1;
+        i > 0;
+        i--
+    ) {
 
+        const j =
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
 
-let currentWager =
-    0;
+        [
+            a[i],
+            a[j]
+        ] = [
+            a[j],
+            a[i]
+        ];
 
+    }
 
-let surpriseLocked =
-    false;
+    return a;
 
-
-
-/* =================================
-   FIND GAME SET
-================================= */
+}
 
 function getGameSet() {
-
 
     const params =
         new URLSearchParams(
             window.location.search
         );
-
 
     return (
         params.get("set")
@@ -1323,55 +661,41 @@ function getGameSet() {
 
 }
 
-
-
-/* =================================
-   START GAME
-================================= */
-
 async function startGame() {
-
 
     const setName =
         getGameSet();
-
 
     const game =
         GAME_SETS[
             setName
         ];
 
-
     if (!game) {
-
 
         showError(
             "The requested Bible Bowl game could not be found."
         );
 
-
         return;
 
     }
-
 
     document.getElementById(
         "chapterTitle"
     ).textContent =
         game.title;
 
-
     try {
-
 
         const response =
             await fetch(
-                game.file
+                game.file +
+                "?v=" +
+                Date.now()
             );
 
-
         if (!response.ok) {
-
 
             throw new Error(
                 "Question file could not be loaded."
@@ -1379,22 +703,18 @@ async function startGame() {
 
         }
 
-
         const text =
             await response.text();
 
-
-        questions =
+        sourceQuestions =
             parseCSV(
                 text
             );
 
-
         if (
-            questions.length !==
+            sourceQuestions.length !==
             25
         ) {
-
 
             throw new Error(
                 "This game requires exactly 25 questions."
@@ -1402,63 +722,40 @@ async function startGame() {
 
         }
 
-
-        chooseSurpriseQuestions();
-
-
-        buildBoard();
-
+        prepareNewGame();
 
     }
 
-
     catch(error) {
-
-
-        showError(
-
-            "The game questions could not be loaded. " +
-
-            "Please verify that the correct CSV file is uploaded " +
-
-            "in the same repository as jeopardy.html."
-
-        );
-
 
         console.error(
             error
         );
 
+        showError(
+
+            "The game questions could not be loaded. " +
+
+            "Verify that the CSV filename in jeopardy.html " +
+
+            "exactly matches the uploaded file."
+
+        );
 
     }
 
 }
 
-
-
-/* =================================
-   CSV READER
-================================= */
-
 function parseCSV(text) {
 
+    const rows = [];
 
-    const rows =
-        [];
+    let row = [];
 
-
-    let row =
-        [];
-
-
-    let field =
-        "";
-
+    let field = "";
 
     let insideQuotes =
         false;
-
 
     for (
         let i = 0;
@@ -1466,19 +763,15 @@ function parseCSV(text) {
         i++
     ) {
 
-
         const char =
             text[i];
-
 
         const next =
             text[i + 1];
 
-
         if (
             char === '"'
         ) {
-
 
             if (
                 insideQuotes
@@ -1486,29 +779,21 @@ function parseCSV(text) {
                 next === '"'
             ) {
 
-
                 field +=
                     '"';
 
-
                 i++;
-
 
             }
 
-
             else {
-
 
                 insideQuotes =
                     !insideQuotes;
 
-
             }
 
-
         }
-
 
         else if (
             char === ","
@@ -1516,18 +801,14 @@ function parseCSV(text) {
             !insideQuotes
         ) {
 
-
             row.push(
                 field
             );
 
-
             field =
                 "";
 
-
         }
-
 
         else if (
 
@@ -1542,105 +823,76 @@ function parseCSV(text) {
 
         ) {
 
-
             if (
-
                 char === "\r"
                 &&
                 next === "\n"
-
             ) {
-
 
                 i++;
 
-
             }
-
 
             row.push(
                 field
             );
-
 
             if (
 
                 row.some(
 
                     value =>
-
-                    value.trim()
-                    !== ""
+                        value.trim()
+                        !== ""
 
                 )
 
             ) {
 
-
                 rows.push(
                     row
                 );
 
-
             }
 
+            row = [];
 
-            row =
-                [];
-
-
-            field =
-                "";
-
+            field = "";
 
         }
 
-
         else {
-
 
             field +=
                 char;
 
-
         }
-
 
     }
 
-
     if (
-
         field.length > 0
         ||
         row.length > 0
-
     ) {
-
 
         row.push(
             field
         );
 
-
         rows.push(
             row
         );
 
-
     }
-
 
     if (
         rows.length < 2
     ) {
 
-
         return [];
 
-
     }
-
 
     const headers =
 
@@ -1657,7 +909,6 @@ function parseCSV(text) {
 
         );
 
-
     return rows
 
         .slice(1)
@@ -1666,10 +917,7 @@ function parseCSV(text) {
 
             row => {
 
-
-                const obj =
-                    {};
-
+                const obj = {};
 
                 headers.forEach(
 
@@ -1677,7 +925,6 @@ function parseCSV(text) {
                         header,
                         index
                     ) => {
-
 
                         obj[header] =
 
@@ -1689,20 +936,16 @@ function parseCSV(text) {
 
                             .trim();
 
-
                     }
 
                 );
-
 
                 obj.Points =
                     Number(
                         obj.Points
                     );
 
-
                 return obj;
-
 
             }
 
@@ -1717,53 +960,142 @@ function parseCSV(text) {
 
 }
 
+/* ================================
+   RANDOMIZE QUESTION POSITIONS
+================================ */
 
+function randomizeBoardQuestions() {
 
-/* =================================
-   SURPRISE JEOPARDY
-================================= */
+    const categories =
 
-function chooseSurpriseQuestions() {
+        [
+            ...new Set(
 
+                sourceQuestions.map(
 
-    surpriseQuestions.clear();
+                    q =>
+                        q.Category
 
+                )
 
-    while (
-        surpriseQuestions.size
-        <
-        2
+            )
+        ];
+
+    if (
+        categories.length !==
+        5
     ) {
 
+        throw new Error(
+            "This game requires exactly 5 categories."
+        );
 
-        const index =
+    }
 
-            Math.floor(
+    const pointValues =
+        [
+            100,
+            200,
+            300,
+            400,
+            500
+        ];
 
-                Math.random()
-                *
-                questions.length
+    questions = [];
+
+    categories.forEach(
+
+        category => {
+
+            const categoryQuestions =
+
+                shuffle(
+
+                    sourceQuestions.filter(
+
+                        q =>
+                            q.Category ===
+                            category
+
+                    )
+
+                );
+
+            categoryQuestions.forEach(
+
+                (
+                    q,
+                    index
+                ) => {
+
+                    questions.push({
+
+                        ...q,
+
+                        Points:
+                            pointValues[
+                                index
+                            ]
+
+                    });
+
+                }
 
             );
 
+        }
+
+    );
+
+}
+
+/* ================================
+   NEW GAME
+================================ */
+
+function prepareNewGame() {
+
+    randomizeBoardQuestions();
+
+    chooseSurpriseQuestions();
+
+    buildBoard();
+
+}
+
+/* ================================
+   SURPRISE JEOPARDY
+================================ */
+
+function chooseSurpriseQuestions() {
+
+    surpriseQuestions.clear();
+
+    while (
+        surpriseQuestions.size <
+        2
+    ) {
 
         surpriseQuestions.add(
-            index
-        );
 
+            Math.floor(
+
+                Math.random() *
+                questions.length
+
+            )
+
+        );
 
     }
 
 }
 
-
-
-/* =================================
+/* ================================
    BUILD BOARD
-================================= */
+================================ */
 
 function buildBoard() {
-
 
     const board =
 
@@ -1771,10 +1103,8 @@ function buildBoard() {
             "board"
         );
 
-
     board.innerHTML =
         "";
-
 
     const categories =
 
@@ -1791,27 +1121,9 @@ function buildBoard() {
             )
         ];
 
-
-    if (
-        categories.length !==
-        5
-    ) {
-
-
-        showError(
-            "This game requires exactly 5 categories."
-        );
-
-
-        return;
-
-    }
-
-
     categories.forEach(
 
         category => {
-
 
             const header =
 
@@ -1819,44 +1131,35 @@ function buildBoard() {
                     "div"
                 );
 
-
             header.className =
                 "category";
 
-
             header.textContent =
                 category;
-
 
             board.appendChild(
                 header
             );
 
-
         }
 
     );
 
+    [
+        100,
+        200,
+        300,
+        400,
+        500
+    ]
 
-    const pointValues =
-        [
-            100,
-            200,
-            300,
-            400,
-            500
-        ];
-
-
-    pointValues.forEach(
+    .forEach(
 
         points => {
-
 
             categories.forEach(
 
                 category => {
-
 
                     const qIndex =
 
@@ -1876,27 +1179,31 @@ function buildBoard() {
 
                         );
 
-
                     const cell =
 
                         document.createElement(
                             "button"
                         );
 
-
                     cell.className =
                         "question-cell";
 
-
                     cell.textContent =
-                        "$" +
-                        points;
 
+                        qIndex >= 0
+
+                        ?
+
+                        "$" +
+                        points
+
+                        :
+
+                        "—";
 
                     if (
                         qIndex >= 0
                     ) {
-
 
                         cell.onclick =
 
@@ -1909,33 +1216,22 @@ function buildBoard() {
 
                             );
 
-
                     }
 
-
                     else {
-
-
-                        cell.textContent =
-                            "—";
-
 
                         cell.disabled =
                             true;
 
-
                     }
-
 
                     board.appendChild(
                         cell
                     );
 
-
                 }
 
             );
-
 
         }
 
@@ -1943,17 +1239,71 @@ function buildBoard() {
 
 }
 
+/* ================================
+   RANDOMIZE ANSWERS
+================================ */
 
+function buildRandomizedAnswers(
+    question
+) {
 
-/* =================================
+    const originalLetters =
+        [
+            "A",
+            "B",
+            "C",
+            "D"
+        ];
+
+    const correctText =
+
+        question[
+
+            question
+            .Correct
+            .trim()
+            .toUpperCase()
+
+        ];
+
+    const options =
+
+        shuffle(
+
+            originalLetters.map(
+
+                letter =>
+                    question[
+                        letter
+                    ]
+
+            )
+
+        );
+
+    displayedAnswers =
+        options;
+
+    displayedCorrectLetter =
+
+        originalLetters[
+
+            options.indexOf(
+                correctText
+            )
+
+        ];
+
+}
+
+/* ================================
    OPEN QUESTION
-================================= */
+================================ */
 
 function openQuestion(
     index,
     cell
 ) {
-
 
     if (
 
@@ -1963,42 +1313,36 @@ function openQuestion(
 
     ) {
 
-
         return;
 
-
     }
-
 
     currentQuestion =
         questions[
             index
         ];
 
-
     currentQuestionIndex =
         index;
-
 
     currentCell =
         cell;
 
-
     selectedAnswer =
         null;
-
 
     answerLocked =
         false;
 
-
     currentWager =
         0;
-
 
     surpriseLocked =
         false;
 
+    buildRandomizedAnswers(
+        currentQuestion
+    );
 
     document.getElementById(
         "modalValue"
@@ -2007,13 +1351,11 @@ function openQuestion(
         "$" +
         currentQuestion.Points;
 
-
     document.getElementById(
         "modalScripture"
     ).textContent =
 
         currentQuestion.Scripture;
-
 
     document.getElementById(
         "modalQuestion"
@@ -2021,36 +1363,30 @@ function openQuestion(
 
         currentQuestion.Question;
 
-
     document.getElementById(
         "resultMessage"
     ).textContent =
         "";
-
 
     document.getElementById(
         "resultMessage"
     ).className =
         "result-message";
 
-
     document.getElementById(
         "enterAnswerBtn"
     ).disabled =
         true;
-
 
     document.getElementById(
         "returnBtn"
     ).disabled =
         true;
 
-
     document.getElementById(
         "answeringTeam"
     ).disabled =
         false;
-
 
     const answers =
 
@@ -2058,10 +1394,8 @@ function openQuestion(
             "modalAnswers"
         );
 
-
     answers.innerHTML =
         "";
-
 
     [
         "A",
@@ -2072,8 +1406,10 @@ function openQuestion(
 
     .forEach(
 
-        letter => {
-
+        (
+            letter,
+            index
+        ) => {
 
             const button =
 
@@ -2081,18 +1417,14 @@ function openQuestion(
                     "button"
                 );
 
-
             button.type =
                 "button";
-
 
             button.className =
                 "answer-choice";
 
-
             button.dataset.letter =
                 letter;
-
 
             button.innerHTML =
 
@@ -2102,10 +1434,9 @@ function openQuestion(
 
                 ".</strong> " +
 
-                currentQuestion[
-                    letter
+                displayedAnswers[
+                    index
                 ];
-
 
             button.onclick =
 
@@ -2118,21 +1449,17 @@ function openQuestion(
 
                 );
 
-
             answers.appendChild(
                 button
             );
-
 
         }
 
     );
 
-
     buildSurpriseArea(
         index
     );
-
 
     document.getElementById(
         "questionModal"
@@ -2141,28 +1468,22 @@ function openQuestion(
 
 }
 
-
-
-/* =================================
+/* ================================
    SELECT ANSWER
-================================= */
+================================ */
 
 function selectAnswer(
     letter,
     button
 ) {
 
-
     if (
         answerLocked
     ) {
 
-
         return;
 
-
     }
-
 
     if (
 
@@ -2176,21 +1497,16 @@ function selectAnswer(
 
     ) {
 
-
         alert(
             "Lock in the Surprise Jeopardy wager first."
         );
 
-
         return;
-
 
     }
 
-
     selectedAnswer =
         letter;
-
 
     document
         .querySelectorAll(
@@ -2199,23 +1515,21 @@ function selectAnswer(
 
         .forEach(
 
-            choice => {
+            choice =>
 
-
-                choice.classList.remove(
+                choice
+                .classList
+                .remove(
                     "selected"
-                );
-
-
-            }
+                )
 
         );
 
-
-    button.classList.add(
-        "selected"
-    );
-
+    button
+        .classList
+        .add(
+            "selected"
+        );
 
     document.getElementById(
         "enterAnswerBtn"
@@ -2224,27 +1538,27 @@ function selectAnswer(
 
 }
 
-
-
-/* =================================
-   BUILD SURPRISE JEOPARDY
-================================= */
+/* ================================
+   SURPRISE JEOPARDY WINDOW
+================================ */
 
 function buildSurpriseArea(
     index
 ) {
 
-
-    const surpriseArea =
+    const area =
 
         document.getElementById(
             "surpriseArea"
         );
 
-
-    surpriseArea.innerHTML =
+    area.innerHTML =
         "";
 
+    document.getElementById(
+        "answeringTeam"
+    ).onchange =
+        null;
 
     if (
 
@@ -2254,20 +1568,11 @@ function buildSurpriseArea(
 
     ) {
 
-
-        document.getElementById(
-            "answeringTeam"
-        ).onchange =
-            null;
-
-
         return;
-
 
     }
 
-
-    surpriseArea.innerHTML = `
+    area.innerHTML = `
 
         <div class="surprise">
 
@@ -2309,9 +1614,7 @@ function buildSurpriseArea(
 
     `;
 
-
     updateWagerOptions();
-
 
     document.getElementById(
         "answeringTeam"
@@ -2321,20 +1624,16 @@ function buildSurpriseArea(
 
 }
 
-
-
-/* =================================
+/* ================================
    WAGER OPTIONS
-================================= */
+================================ */
 
 function updateWagerOptions() {
 
-
     if (
 
-        currentQuestionIndex
-            ===
-            null
+        currentQuestionIndex ===
+        null
 
         ||
 
@@ -2342,25 +1641,15 @@ function updateWagerOptions() {
             currentQuestionIndex
         )
 
-    ) {
+        ||
 
-
-        return;
-
-
-    }
-
-
-    if (
         surpriseLocked
-    ) {
 
+    ) {
 
         return;
 
-
     }
-
 
     const team =
 
@@ -2372,12 +1661,11 @@ function updateWagerOptions() {
 
         );
 
-
     const teamScore =
+
         scores[
             team - 1
         ];
-
 
     const maxWager =
 
@@ -2388,55 +1676,47 @@ function updateWagerOptions() {
 
         );
 
-
-    const wagerSelect =
+    const select =
 
         document.getElementById(
             "wagerAmount"
         );
 
-
-    if (
-        !wagerSelect
-    ) {
-
+    if (!select) {
 
         return;
 
-
     }
 
-
-    wagerSelect.innerHTML =
+    select.innerHTML =
         "";
 
-
-    const safeMaximum =
+    const safeMax =
 
         Math.max(
 
             100,
 
             Math.floor(
-                maxWager / 100
+                maxWager /
+                100
             )
+
             *
             100
 
         );
-
 
     for (
 
         let wager = 100;
 
         wager <=
-        safeMaximum;
+        safeMax;
 
         wager += 100
 
     ) {
-
 
         const option =
 
@@ -2444,83 +1724,62 @@ function updateWagerOptions() {
                 "option"
             );
 
-
         option.value =
             wager;
 
-
         option.textContent =
+
             "$" +
             wager;
 
-
-        wagerSelect.appendChild(
+        select.appendChild(
             option
         );
 
-
     }
 
-
-    const preferred =
+    select.value =
 
         Math.min(
 
             currentQuestion.Points,
-            safeMaximum
+            safeMax
 
         );
 
-
-    wagerSelect.value =
-        preferred;
-
 }
 
-
-
-/* =================================
+/* ================================
    LOCK WAGER
-================================= */
+================================ */
 
 function lockWager() {
-
 
     if (
         surpriseLocked
     ) {
 
-
         return;
-
 
     }
 
-
-    const wagerSelect =
+    const select =
 
         document.getElementById(
             "wagerAmount"
         );
 
-
-    if (
-        !wagerSelect
-    ) {
-
+    if (!select) {
 
         return;
 
-
     }
-
 
     const wager =
 
         Number(
-            wagerSelect.value
+            select.value
         );
-
 
     if (
 
@@ -2534,21 +1793,18 @@ function lockWager() {
 
         ||
 
-        wager % 100 !== 0
+        wager % 100 !==
+        0
 
     ) {
-
 
         alert(
             "Wagers must be in $100 increments."
         );
 
-
         return;
 
-
     }
-
 
     const team =
 
@@ -2560,81 +1816,59 @@ function lockWager() {
 
         );
 
-
-    const teamScore =
-
-        scores[
-            team - 1
-        ];
-
-
     const maxWager =
 
         Math.max(
 
-            teamScore,
+            scores[
+                team - 1
+            ],
+
             currentQuestion.Points
 
         );
 
-
     if (
-        wager > maxWager
+        wager >
+        maxWager
     ) {
-
 
         alert(
             "That wager is higher than the allowed maximum."
         );
 
-
-        updateWagerOptions();
-
-
         return;
 
-
     }
-
 
     currentWager =
         wager;
 
-
     surpriseLocked =
         true;
-
 
     document.getElementById(
         "answeringTeam"
     ).disabled =
         true;
 
-
-    wagerSelect.disabled =
+    select.disabled =
         true;
 
+    const button =
 
-    const lockButton =
-
-        wagerSelect
+        select
         .parentElement
         .querySelector(
             "button"
         );
 
+    if (button) {
 
-    if (
-        lockButton
-    ) {
-
-
-        lockButton.disabled =
+        button.disabled =
             true;
 
-
     }
-
 
     document.getElementById(
         "wagerStatus"
@@ -2646,18 +1880,15 @@ function lockWager() {
 
         " for $" +
 
-        currentWager;
+        wager;
 
 }
 
-
-
-/* =================================
+/* ================================
    ENTER ANSWER
-================================= */
+================================ */
 
 function enterAnswer() {
-
 
     if (
 
@@ -2673,12 +1904,9 @@ function enterAnswer() {
 
     ) {
 
-
         return;
 
-
     }
-
 
     if (
 
@@ -2692,36 +1920,22 @@ function enterAnswer() {
 
     ) {
 
-
         alert(
             "Lock in the Surprise Jeopardy wager first."
         );
 
-
         return;
-
 
     }
 
-
     answerLocked =
         true;
-
-
-    const correctLetter =
-
-        currentQuestion
-        .Correct
-        .trim()
-        .toUpperCase();
-
 
     const isCorrect =
 
         selectedAnswer
         ===
-        correctLetter;
-
+        displayedCorrectLetter;
 
     document
         .querySelectorAll(
@@ -2732,10 +1946,8 @@ function enterAnswer() {
 
             choice => {
 
-
                 choice.disabled =
                     true;
-
 
                 if (
 
@@ -2743,10 +1955,9 @@ function enterAnswer() {
                     .dataset
                     .letter
                     ===
-                    correctLetter
+                    displayedCorrectLetter
 
                 ) {
-
 
                     choice
                     .classList
@@ -2754,9 +1965,7 @@ function enterAnswer() {
                         "correct"
                     );
 
-
                 }
-
 
                 if (
 
@@ -2772,21 +1981,17 @@ function enterAnswer() {
 
                 ) {
 
-
                     choice
                     .classList
                     .add(
                         "wrong"
                     );
 
-
                 }
-
 
             }
 
         );
-
 
     const team =
 
@@ -2798,45 +2003,33 @@ function enterAnswer() {
 
         );
 
-
     let scoreChange =
-
-        currentQuestion.Points;
-
-
-    if (
 
         surpriseQuestions.has(
             currentQuestionIndex
         )
 
-    ) {
+        ?
 
+        currentWager
 
-        scoreChange =
-            currentWager;
+        :
 
-
-    }
-
+        currentQuestion.Points;
 
     if (
         !isCorrect
     ) {
 
-
         scoreChange =
             -scoreChange;
 
-
     }
-
 
     adjustScore(
         team,
         scoreChange
     );
-
 
     const result =
 
@@ -2844,11 +2037,9 @@ function enterAnswer() {
             "resultMessage"
         );
 
-
     if (
         isCorrect
     ) {
-
 
         result.textContent =
 
@@ -2864,17 +2055,13 @@ function enterAnswer() {
 
             + ".";
 
-
         result.className =
 
             "result-message correct-text";
 
-
     }
 
-
     else {
-
 
         result.textContent =
 
@@ -2892,26 +2079,21 @@ function enterAnswer() {
 
             ". The correct answer is shown in green.";
 
-
         result.className =
 
             "result-message wrong-text";
 
-
     }
-
 
     document.getElementById(
         "enterAnswerBtn"
     ).disabled =
         true;
 
-
     document.getElementById(
         "answeringTeam"
     ).disabled =
         true;
-
 
     document.getElementById(
         "returnBtn"
@@ -2920,30 +2102,23 @@ function enterAnswer() {
 
 }
 
-
-
-/* =================================
+/* ================================
    RETURN TO BOARD
-================================= */
+================================ */
 
 function finishQuestion() {
-
 
     if (
         !answerLocked
     ) {
 
-
         return;
 
-
     }
-
 
     if (
         currentCell
     ) {
-
 
         currentCell
             .classList
@@ -2951,51 +2126,45 @@ function finishQuestion() {
                 "completed"
             );
 
-
         currentCell.textContent =
             "✓";
-
 
         currentCell.onclick =
             null;
 
-
     }
-
 
     document.getElementById(
         "questionModal"
     ).style.display =
         "none";
 
-
     currentQuestion =
         null;
-
 
     currentQuestionIndex =
         null;
 
-
     currentCell =
         null;
-
 
     selectedAnswer =
         null;
 
-
     answerLocked =
         false;
-
 
     currentWager =
         0;
 
-
     surpriseLocked =
         false;
 
+    displayedAnswers =
+        [];
+
+    displayedCorrectLetter =
+        "";
 
     document.getElementById(
         "answeringTeam"
@@ -3004,37 +2173,32 @@ function finishQuestion() {
 
 }
 
-
-
-/* =================================
+/* ================================
    SCORE
-================================= */
+================================ */
 
 function adjustScore(
     team,
     amount
 ) {
 
-
     if (
-        amount % 100 !== 0
+        amount % 100 !==
+        0
     ) {
-
 
         return;
 
-
     }
-
 
     scores[
         team - 1
     ] +=
         amount;
 
-
     document.getElementById(
-        "score" + team
+        "score" +
+        team
     ).textContent =
 
         scores[
@@ -3043,74 +2207,54 @@ function adjustScore(
 
 }
 
-
-
-/* =================================
-   RESET
-================================= */
+/* ================================
+   RESET & RESHUFFLE
+================================ */
 
 function resetGame() {
 
-
-    const confirmed =
-
-        confirm(
-            "Reset the board and all team scores?"
-        );
-
-
     if (
-        !confirmed
-    ) {
 
+        !confirm(
+
+            "Reset the board, team scores, and reshuffle all questions?"
+
+        )
+
+    ) {
 
         return;
 
-
     }
-
 
     scores =
         [0,0,0];
 
-
     for (
-
         let team = 1;
-
         team <= 3;
-
         team++
-
     ) {
 
-
         document.getElementById(
-            "score" + team
+            "score" +
+            team
         ).textContent =
             "0";
 
-
     }
 
-
-    chooseSurpriseQuestions();
-
-
-    buildBoard();
+    prepareNewGame();
 
 }
 
-
-
-/* =================================
-   ERROR MESSAGE
-================================= */
+/* ================================
+   ERROR
+================================ */
 
 function showError(
     message
 ) {
-
 
     document
         .querySelector(
@@ -3134,17 +2278,13 @@ function showError(
 
 }
 
-
-
-/* =================================
-   START
-================================= */
+/* ================================
+   START GAME
+================================ */
 
 startGame();
 
-
 </script>
-
 
 </body>
 
